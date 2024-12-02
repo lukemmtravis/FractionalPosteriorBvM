@@ -125,7 +125,6 @@ posterior_sample = function(beta,mu,gamma,n=10000,L=1000,alpha=1,num_samples=100
   return(psi_samples)
 }
 
-alpha=n^(-1/4)
 alpha=1/4
 #compute samples for different beta
 betas = c(0.1, 1)
@@ -147,7 +146,7 @@ beta_plot = ggplot(ref_dat, aes(x=density_x, y = ref_density)) + geom_line() +
   xlab(TeX(r'($\frac{\sqrt{n\alpha_n}(\psi(f) - \hat{\psi})}{||\tilde{\psi} ||_L})')) +
   scale_fill_discrete(name = TeX(r'($\beta)'), labels = c("0.1", "1")) +
   ylab("Density") + 
-  ggtitle("Rescaled samples from the Fractional Posterior (alpha = 1/4)") +
+  # ggtitle("Rescaled samples from the Fractional Posterior (alpha = 1/4)") +
   xlim(-6,6) +
   ylim(0,0.5) +
   theme(text = element_text(size = 13))
@@ -173,17 +172,17 @@ gamma_plot = ggplot(ref_dat, aes(x=density_x, y = ref_density)) + geom_line() +
   geom_histogram(data=gamma_plot_dat, aes(x=psi_f, y=..density.., fill=gamma), position='identity', alpha=0.5, bins=50) +
   xlab(TeX(r'($\frac{\sqrt{n\alpha_n}(\psi(f) - \hat{\psi})}{||\tilde{\psi} ||_L})')) +
   scale_fill_discrete(name = TeX(r'($\gamma)'), labels = c("10", "1")) +
-  ylab("Density") + 
+  ylab(" ") + 
   xlim(-6,6) +
   ylim(0,0.5) +
-  ggtitle('') +
+  # ggtitle('') +
   theme(text = element_text(size = 13))
 
-grid.arrange(beta_plot, gamma_plot, nrow = 1)
+combined = grid.arrange(beta_plot, gamma_plot, nrow = 1)
+ggsave(plot = combined, '/Users/lmt15/Documents/phd/Thesis/Writing/Figures/gp_bvm_condition_illustration2.pdf', width = 10, height = 5, units='in')
 #NOTE: Save as 8x14 pdf
 
 ### To compare credible sets with corrected credible sets
-
 beta = 1
 mu = 1
 gamma = 1
